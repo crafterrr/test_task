@@ -22,6 +22,7 @@ class WalletList(ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_fields = ['label', 'balance']
     ordering_fields = ['id', 'label', 'balance']
+    ordering = ['id']
     http_method_names = ['get', 'post']
 
 
@@ -32,4 +33,5 @@ class TransactionList(ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_fields = ['txid', 'wallet__label', 'amount']
     ordering_fields = ['id', 'wallet__label', 'txid', 'amount']
+    ordering = ['id']
     http_method_names = ['get', 'post']

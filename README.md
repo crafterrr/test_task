@@ -10,6 +10,9 @@ This project is a Django-based wallet management application designed to handle 
 - Comprehensive test suite
 - Linting with Flake8
 
+## Assumptions
+- There is no authentication implemented. Users can access all wallets without any restrictions.
+
 ## Prerequisites
 - Docker
 - Docker Compose

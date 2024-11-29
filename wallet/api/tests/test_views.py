@@ -153,3 +153,31 @@ class TransactionListTestCase(APITestCase):
         self.assertEqual(results[0]['amount'], '30.00')
         self.assertEqual(results[1]['amount'], '20.00')
         self.assertEqual(results[2]['amount'], '10.00')
+
+    def test_transaction_filter_by_wallet_id(self):
+        wallet_1 = Wallet.objects.create(label="Wallet_1", balance=100)
+        wallet_2 = Wallet.objects.create(label="Wallet_2", balance=200)
+
+        Transaction.objects.create(wallet=wallet_1, txid="tx_1", amount=10)
+        Transaction.objects.create(wallet=wallet_1, txid="tx_2", amount=20)
+        Transaction.objects.create(wallet=wallet_2, txid="tx_3", amount=30)
+
+        response = self.client.get(f'/api/transaction/?wallet={wallet_1.id}')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        results = response.json()['results']
+        self.assertEqual(len(results), 2)
+        self.assertTrue(all(tx['wallet']['id'] == str(wallet_1.id) for tx in results))
+
+    def test_transaction_filter_by_wallet_label(self):
+        wallet_1 = Wallet.objects.create(label="Wallet_1", balance=100)
+        wallet_2 = Wallet.objects.create(label="Wallet_2", balance=200)
+
+        Transaction.objects.create(wallet=wallet_1, txid="tx_1", amount=10)
+        Transaction.objects.create(wallet=wallet_1, txid="tx_2", amount=20)
+        Transaction.objects.create(wallet=wallet_2, txid="tx_3", amount=30)
+
+        response = self.client.get('/api/transaction/?wallet__label=Wallet_1')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        results = response.json()['results']
+        self.assertEqual(len(results), 2)
+        self.assertTrue(all(tx['wallet']['id'] == str(wallet_1.id) for tx in results))

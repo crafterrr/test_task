@@ -23,4 +23,6 @@ RUN pip install mysqlclient
 RUN poetry install --no-root
 
 COPY . /app/
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+RUN poetry run python wallet/manage.py migrate
+CMD ["poetry", "run", "python", "wallet/manage.py", "runserver", "0.0.0.0:8000"]

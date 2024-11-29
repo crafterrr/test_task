@@ -23,4 +23,4 @@ RUN pip install mysqlclient
 RUN poetry install --no-root
 
 COPY . /app/
-CMD ["gunicorn", "wallet.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

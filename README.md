@@ -15,19 +15,6 @@ This project is a Django-based wallet management application designed to handle 
 - Docker Compose
 - Poetry
 
-## Setup Instructions
-
-### Clone the Repository
-```bash
-git clone <repository-url>
-cd <repository-directory>
-```
-
-### Install Dependencies
-```bash
-poetry install
-```
-
 ### Running the Application
 
 #### Note
@@ -50,13 +37,5 @@ docker-compose -f docker-compose.test.yml up --build
 ### Linting
 To run Flake8 linting:
 ```bash
-poetry run flake8 wallet/
+poetry run flake8 wallet/api
 ```
-
-
-## Development
-- Ensure code quality with Flake8.
-- Write tests for new features and bug fixes.
-
-## Contributing
-Contributions are welcome! Please fork the repository and submit a pull request.

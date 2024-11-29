@@ -15,6 +15,19 @@ This project is a Django-based wallet management application designed to handle 
 - Docker Compose
 - Poetry
 
+## Database Configuration
+
+The application is configured to use different databases based on the environment:
+
+- **Development**: Uses SQLite. Set the `DJANGO_ENV` environment variable to `dev` when running in development mode or executing tests.
+- **Production**: Uses MySQL. Ensure the `DJANGO_ENV` is not set to `dev`, or set it explicitly to `production`.
+
+Environment variables for MySQL configuration:
+- `MYSQL_DATABASE`: Name of the MySQL database
+- `MYSQL_USER`: MySQL username
+- `MYSQL_PASSWORD`: MySQL password
+- `MYSQL_ROOT_PASSWORD`: MySQL root password
+
 ### Running the Application
 
 #### Note
@@ -32,6 +45,20 @@ The MySQL production setup is currently untested due to compatibility issues on 
 To run the tests using Docker:
 ```bash
 docker-compose -f docker-compose.test.yml up --build
+```
+
+#### Running Tests Locally
+
+To run tests locally using SQLite, ensure that the `DJANGO_ENV` environment variable is set to `dev`. You can do this by running:
+
+```bash
+export DJANGO_ENV=dev
+```
+
+Then, execute the tests using the following command:
+
+```bash
+poetry run python wallet/manage.py test api
 ```
 
 ### Linting

@@ -5,6 +5,5 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.test
-
-volumes:
-  db_data_test:
+    environment:
+      DJANGO_ENV: dev

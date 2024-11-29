@@ -31,7 +31,7 @@ class TransactionList(ModelViewSet):
     serializer_class = TransactionSerializer
     pagination_class = PagePagination
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
-    filterset_fields = ['txid', 'wallet__label', 'amount']
+    filterset_fields = ['txid', 'wallet__label', 'wallet', 'amount']
     ordering_fields = ['id', 'wallet__label', 'txid', 'amount']
     ordering = ['id']
     http_method_names = ['get', 'post']

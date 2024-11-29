@@ -10,23 +10,26 @@ This project is a Django-based wallet management application designed to handle 
 - Comprehensive test suite
 - Linting with Flake8
 
+## Assumptions
+- There is no authentication implemented. Users can access all wallets without any restrictions.
+
 ## Prerequisites
 - Docker
 - Docker Compose
 - Poetry
 
-## Setup Instructions
+## Database Configuration
 
-### Clone the Repository
-```bash
-git clone <repository-url>
-cd <repository-directory>
-```
+The application is configured to use different databases based on the environment:
 
-### Install Dependencies
-```bash
-poetry install
-```
+- **Development**: Uses SQLite. Set the `DJANGO_ENV` environment variable to `dev` when running in development mode or executing tests.
+- **Production**: Uses MySQL. Ensure the `DJANGO_ENV` is not set to `dev`, or set it explicitly to `production`.
+
+Environment variables for MySQL configuration:
+- `MYSQL_DATABASE`: Name of the MySQL database
+- `MYSQL_USER`: MySQL username
+- `MYSQL_PASSWORD`: MySQL password
+- `MYSQL_ROOT_PASSWORD`: MySQL root password
 
 ### Running the Application
 
@@ -47,16 +50,22 @@ To run the tests using Docker:
 docker-compose -f docker-compose.test.yml up --build
 ```
 
+#### Running Tests Locally
+
+To run tests locally using SQLite, ensure that the `DJANGO_ENV` environment variable is set to `dev`. You can do this by running:
+
+```bash
+export DJANGO_ENV=dev
+```
+
+Then, execute the tests using the following command:
+
+```bash
+poetry run python wallet/manage.py test api
+```
+
 ### Linting
 To run Flake8 linting:
 ```bash
-poetry run flake8 wallet/
+poetry run flake8 wallet/api
 ```
-
-
-## Development
-- Ensure code quality with Flake8.
-- Write tests for new features and bug fixes.
-
-## Contributing
-Contributions are welcome! Please fork the repository and submit a pull request.

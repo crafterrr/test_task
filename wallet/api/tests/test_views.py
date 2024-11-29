@@ -43,6 +43,29 @@ class WalletListTestCase(APITestCase):
         self.assertEqual(results[0]['label'], 'Wallet_3')
         self.assertEqual(results[1]['label'], 'Wallet_4')
 
+    def test_wallet_pagination_complete_sequence(self):
+        total_wallets = 100
+        page_length = 3
+        for i in range(1, total_wallets + 1):
+            Wallet.objects.create(label=f"Wallet_{i}", balance=100 * i)
+
+        collected_ids = []
+        # Iterate over all pages
+        for page_number in range(1, total_wallets // page_length + 2):
+            response = self.client.get(
+                f'/api/wallet/?page_number={page_number}&page_length={page_length}'
+            )
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            results = response.json()['results']
+            if not results:
+                break
+            collected_ids.extend([wallet['id'] for wallet in results])
+
+        # Check that all ids are present
+        self.assertEqual(len(collected_ids), total_wallets)
+        # Check for duplicates
+        self.assertEqual(len(set(collected_ids)), total_wallets)
+
 
 class TransactionListTestCase(APITestCase):
     def setUp(self):

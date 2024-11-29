@@ -1,0 +1,18 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+RUN apt-get update && \
+    apt-get install -y gcc build-essential pkg-config && \
+    apt-get clean
+
+COPY . /app/
+
+RUN pip install --no-cache-dir poetry
+
+RUN poetry install --no-root
+
+ENV DJANGO_SETTINGS_MODULE=wallet.settings
+ENV PYTHONUNBUFFERED 1
+
+CMD ["poetry", "run", "python", "wallet/manage.py", "test", "api"]

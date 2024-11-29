@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+
+volumes:
+  db_data_test:

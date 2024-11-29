@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "wallet"
+version = "0.1.0"
+description = ""
+authors = ["Vladislav Yakushenko <crafter1708@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.1.3"
+djangorestframework = "^3.15.2"
+mysqlclient = "^2.2.6"
+djangorestframework-jsonapi = "^7.1.0"
+django-filter = "^24.3"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^6.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
